@@ -1,5 +1,7 @@
 SeomozBulk::Application.routes.draw do
   
+  resources :reports
+
   root  'static_pages#home'
   
   get "static_pages/home"

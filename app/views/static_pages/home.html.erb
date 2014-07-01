@@ -2,3 +2,16 @@
 <h1>Enter URLs</h1>
 <p>Paste in your URLs please...</p>
 <%= render 'url_form' %>
+
+<table class="table table-condensed">
+  <tr>
+	<th>URL</th>
+	<th>DA</th>
+	<th>PA</th>
+  </tr>
+  <tr>
+	<td><%= @response.data[:url] %></td>
+	<td><%= @response.data[:domain_authority] %></td>
+	<td><%= @response.data[:page_authority] %></td>
+  </tr>
+</table>
