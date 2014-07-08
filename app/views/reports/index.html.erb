@@ -21,7 +21,7 @@
         <td><%= report.creator_email %></td>
         <td><%= report.created_at.strftime("%d %b, %Y") %></td>
         <td><%= link_to 'View', report %></td>
-        <td><%= link_to "Export CSV", report_path(report, format: "csv"), :class => "btn btn-success btn-sm" %></td>
+        <td><% if report.completed %><%= link_to "Export CSV", report_path(report, format: "csv"), :class => "btn btn-success btn-sm" %><% else %><span class="label label-warning">In Progress (<%=number_to_percentage(report.percentage_complete, precision: 0)%>)</span><% end %></td>
         <td><%= link_to 'DELETE', report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
