@@ -36,7 +36,7 @@ class UrlsController < ApplicationController
       end
     end
 
-    @url.delay.get_linkscape_data
+    # @url.delay.get_linkscape_data
   end
 
   # PATCH/PUT /urls/1

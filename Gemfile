@@ -13,6 +13,7 @@ gem 'linkscape', github: 'seomoz/linkscape-gem'
 gem 'delayed_job', github: 'collectiveidea/delayed_job'
 gem 'delayed_job_active_record'
 gem "delayed_job_web"
+gem 'domainatrix', github: 'pauldix/domainatrix'
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'

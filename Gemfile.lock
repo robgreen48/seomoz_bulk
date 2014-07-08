@@ -12,6 +12,13 @@ GIT
       activesupport (>= 3.0, < 4.2)
 
 GIT
+  remote: git://github.com/pauldix/domainatrix.git
+  revision: 26382c92bb2d30c83915ff9c966b77222c777ae0
+  specs:
+    domainatrix (0.0.11)
+      addressable
+
+GIT
   remote: git://github.com/seomoz/linkscape-gem.git
   revision: f7465a9b27ac4b8890a41ee3c56f5421e8f2843e
   specs:
@@ -45,6 +52,7 @@ GEM
       multi_json (~> 1.3)
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
+    addressable (2.3.6)
     arel (4.0.2)
     bcrypt-ruby (3.1.2-x86-mingw32)
     bootstrap-sass (2.3.2.0)
@@ -217,6 +225,7 @@ DEPENDENCIES
   delayed_job!
   delayed_job_active_record
   delayed_job_web
+  domainatrix!
   factory_girl_rails (= 4.2.0)
   faker (= 1.1.2)
   jbuilder (= 1.0.2)

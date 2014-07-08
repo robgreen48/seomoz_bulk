@@ -17,7 +17,7 @@ class ReportsController < ApplicationController
       format.json { render json: @report }
       format.csv { render text: @report.to_csv }
     end
-    
+
   end
 
   # GET /reports/new
@@ -36,8 +36,9 @@ class ReportsController < ApplicationController
     @report.save
     @urls = params[:urls].split("\r\n")
       @urls.each do |url|
-        Url.create(:report_id => @report.id, :uri => url)
+        Url.create(:report_id => @report.id, :uri => Url.normalise(url))
       end
+      @report.strip_domains
       @report.queue_jobs
 
     respond_to do |format|
