@@ -1,6 +1,10 @@
 SeomozBulk::Application.routes.draw do
   
+  resources :urls
+
   resources :reports
+
+  match '/delayed_job' => DelayedJobWeb, :anchor => false, via: [:get, :post]
 
   root  'static_pages#home'
   

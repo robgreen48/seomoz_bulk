@@ -1,0 +1,41 @@
+<h1>Listing urls</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Report</th>
+      <th>Uri</th>
+      <th>Domain authority</th>
+      <th>Page authority</th>
+      <th>Ext links</th>
+      <th>Links</th>
+      <th>Canonical url</th>
+      <th>Title</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @urls.each do |url| %>
+      <tr>
+        <td><%= url.report_id %></td>
+        <td><%= url.uri %></td>
+        <td><%= url.domain_authority %></td>
+        <td><%= url.page_authority %></td>
+        <td><%= url.ext_links %></td>
+        <td><%= url.links %></td>
+        <td><%= url.canonical_url %></td>
+        <td><%= url.title %></td>
+        <td><%= link_to 'Show', url %></td>
+        <td><%= link_to 'Edit', edit_url_path(url) %></td>
+        <td><%= link_to 'Destroy', url, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Url', new_url_path %>

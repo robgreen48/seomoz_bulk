@@ -1,11 +1,12 @@
 <h1>Listing reports</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Site url</th>
-      <th>Creator email</th>
+      <th>Site URL</th>
+      <th>Creator's email</th>
+      <th>Created</th>
       <th></th>
       <th></th>
       <th></th>
@@ -18,9 +19,10 @@
         <td><%= report.name %></td>
         <td><%= report.site_url %></td>
         <td><%= report.creator_email %></td>
-        <td><%= link_to 'Show', report %></td>
-        <td><%= link_to 'Edit', edit_report_path(report) %></td>
-        <td><%= link_to 'Destroy', report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= report.created_at.strftime("%d %b, %Y") %></td>
+        <td><%= link_to 'View', report %></td>
+        <td><%= link_to "Export CSV", report_path(report, format: "csv"), :class => "btn btn-success btn-sm" %></td>
+        <td><%= link_to 'DELETE', report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

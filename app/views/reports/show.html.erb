@@ -6,14 +6,42 @@
 </p>
 
 <p>
-  <strong>Site url:</strong>
+  <strong>Site URL:</strong>
   <%= @report.site_url %>
 </p>
 
 <p>
-  <strong>Creator email:</strong>
+  <strong>Creator's Email:</strong>
   <%= @report.creator_email %>
 </p>
+
+<table class="table-bordered">
+  <thead>
+    <tr>
+      <th>URL</th>
+      <th>DA</th>
+      <th>PA</th>
+      <th>Ext Links</th>
+      <th>Links</th>
+      <th>Canonical URL</th>
+      <th>Title</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @urls.each do |url| %>
+      <tr>
+        <td><%= url.uri %></td>
+        <td><%= url.domain_authority %></td>
+        <td><%= url.page_authority %></td>
+        <td><%= url.ext_links %></td>
+        <td><%= url.links %></td>
+        <td><%= url.canonical_url %></td>
+        <td><%= url.title %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <%= link_to 'Edit', edit_report_path(@report) %> |
 <%= link_to 'Back', reports_path %>

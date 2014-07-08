@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Report:</strong>
+  <%= @url.report_id %>
+</p>
+
+<p>
+  <strong>Uri:</strong>
+  <%= @url.uri %>
+</p>
+
+<p>
+  <strong>Domain authority:</strong>
+  <%= @url.domain_authority %>
+</p>
+
+<p>
+  <strong>Page authority:</strong>
+  <%= @url.page_authority %>
+</p>
+
+<p>
+  <strong>Ext links:</strong>
+  <%= @url.ext_links %>
+</p>
+
+<p>
+  <strong>Links:</strong>
+  <%= @url.links %>
+</p>
+
+<p>
+  <strong>Canonical url:</strong>
+  <%= @url.canonical_url %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @url.title %>
+</p>
+
+<%= link_to 'Edit', edit_url_path(@url) %> |
+<%= link_to 'Back', urls_path %>

@@ -1,0 +1,49 @@
+<%= form_for(@url) do |f| %>
+  <% if @url.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@url.errors.count, "error") %> prohibited this url from being saved:</h2>
+
+      <ul>
+      <% @url.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :report_id %><br>
+    <%= f.number_field :report_id %>
+  </div>
+  <div class="field">
+    <%= f.label :uri %><br>
+    <%= f.text_field :uri %>
+  </div>
+  <div class="field">
+    <%= f.label :domain_authority %><br>
+    <%= f.number_field :domain_authority %>
+  </div>
+  <div class="field">
+    <%= f.label :page_authority %><br>
+    <%= f.number_field :page_authority %>
+  </div>
+  <div class="field">
+    <%= f.label :ext_links %><br>
+    <%= f.number_field :ext_links %>
+  </div>
+  <div class="field">
+    <%= f.label :links %><br>
+    <%= f.number_field :links %>
+  </div>
+  <div class="field">
+    <%= f.label :canonical_url %><br>
+    <%= f.text_field :canonical_url %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

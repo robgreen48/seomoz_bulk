@@ -11,12 +11,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140701155642) do
+ActiveRecord::Schema.define(version: 20140707142421) do
+
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "reports", force: true do |t|
     t.string   "name"
     t.string   "site_url"
     t.string   "creator_email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "urls", force: true do |t|
+    t.integer  "report_id"
+    t.string   "uri"
+    t.integer  "domain_authority"
+    t.integer  "page_authority"
+    t.integer  "ext_links"
+    t.integer  "links"
+    t.string   "canonical_url"
+    t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

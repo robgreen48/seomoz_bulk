@@ -10,6 +10,14 @@ class ReportsController < ApplicationController
   # GET /reports/1
   # GET /reports/1.json
   def show
+    @urls = @report.urls.page params[:page]
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @report }
+      format.csv { render text: @report.to_csv }
+    end
+    
   end
 
   # GET /reports/new
@@ -25,6 +33,12 @@ class ReportsController < ApplicationController
   # POST /reports.json
   def create
     @report = Report.new(report_params)
+    @report.save
+    @urls = params[:urls].split("\r\n")
+      @urls.each do |url|
+        Url.create(:report_id => @report.id, :uri => url)
+      end
+      @report.queue_jobs
 
     respond_to do |format|
       if @report.save

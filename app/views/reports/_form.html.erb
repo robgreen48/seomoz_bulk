@@ -1,29 +1,49 @@
-<%= form_for(@report) do |f| %>
-  <% if @report.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>
+<%= form_for(@report, :html => {:class => "form-horizontal"}) do |f| %>
+<% if @report.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>
 
-      <ul>
-      <% @report.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <ul>
+    <% @report.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+<div class="form-group">
+  <%= f.label :name, "Name", :class => "col-sm-2 control-label"  %>
+  <div class="col-sm-6">
+    <%= f.text_field :name, :class => "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :site_url %><br>
-    <%= f.text_field :site_url %>
+</div>
+
+<div class="form-group">
+  <%= f.label :site_url, "Site URL", :class => "col-sm-2 control-label"  %>
+  <div class="col-sm-6">
+    <%= f.text_field :site_url, :class => "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :creator_email %><br>
-    <%= f.text_field :creator_email %>
+</div>
+
+<div class="form-group">
+  <%= f.label :creator_email, "Your Email", :class => "col-sm-2 control-label"  %>
+  <div class="col-sm-6">
+    <%= f.text_field :creator_email, :class => "form-control" %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+</div>
+
+
+<div class="form-group">
+  <%= label_tag :urls, "URLs", :class => "col-sm-2 control-label" %>
+  <div class="col-sm-6">
+    <%= text_area_tag :urls, nil, cols: 20, rows: 20, class: "form-control" %>
   </div>
+</div>
+
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-10">
+    <%= f.submit 'Run Report', :class => "btn btn-success" %>
+  </div>
+</div>
+
 <% end %>
