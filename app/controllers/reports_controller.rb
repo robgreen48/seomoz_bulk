@@ -34,12 +34,9 @@ class ReportsController < ApplicationController
   def create
     @report = Report.new(report_params)
     @report.save
+
     @urls = params[:urls].split("\r\n")
-      @urls.each do |url|
-        Url.create(:report_id => @report.id, :uri => Url.normalise(url))
-      end
-      @report.strip_domains
-      @report.queue_jobs
+    @report.delay.create_urls(@urls) # Create Url objects from new report form
 
     respond_to do |format|
       if @report.save

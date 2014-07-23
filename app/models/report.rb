@@ -1,17 +1,10 @@
 class Report < ActiveRecord::Base
 	has_many :urls, dependent: :destroy
 
-	def strip_domains
-		self.urls.each do |url|
-  			whole_url = Domainatrix.parse(url.uri)
-  			url.update_attributes(:domain => whole_url.subdomain + "." + whole_url.domain + "." + whole_url.public_suffix, :public_suffix => whole_url.public_suffix)
-  		end
-  	end
-
-	def queue_jobs
-  		self.urls.each do |url|
-  			url.delay.get_linkscape_data
-  		end
+ 	def create_urls(urls)
+ 		urls.each do |url|
+        	Url.create(:report_id => self.id, :uri => Url.normalise(url))
+		end
   	end
 
   	def percentage_complete
