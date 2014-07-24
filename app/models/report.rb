@@ -3,7 +3,7 @@ class Report < ActiveRecord::Base
 
  	def create_urls(urls)
  		urls.each do |url|
-        	Url.create(:report_id => self.id, :uri => Url.normalise(url))
+        	Url.create(:report_id => self.id, :uri => Url.normalise(url), :status => 'not done')
 		end
   	end
 
