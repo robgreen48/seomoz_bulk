@@ -4,6 +4,7 @@ class Url < ActiveRecord::Base
 	after_create :strip_domains
 	after_create :get_all_data
 
+
 	def get_all_data
 		self.delay.get_linkscape_data
   		self.delay.scrape_matches
@@ -31,7 +32,7 @@ class Url < ActiveRecord::Base
   	end
 
   	def scrape_matches
-  		require 'nokogiri'
+    require 'nokogiri'
 		logger.info "Scraping " + self.uri
 
 		begin
