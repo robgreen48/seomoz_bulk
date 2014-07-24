@@ -31,7 +31,7 @@ class Url < ActiveRecord::Base
   	end
 
   	def scrape_matches
-  		require 'Nokogiri'
+  		require 'nokogiri'
 		logger.info "Scraping " + self.uri
 
 		begin
