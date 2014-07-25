@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Domain:</strong>
+  <%= @whitelist_url.domain %>
+</p>
+
+<%= link_to 'Edit', edit_whitelist_url_path(@whitelist_url) %> |
+<%= link_to 'Back', whitelist_urls_path %>

@@ -1,0 +1,21 @@
+<%= form_for(@blacklist_url) do |f| %>
+  <% if @blacklist_url.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@blacklist_url.errors.count, "error") %> prohibited this blacklist_url from being saved:</h2>
+
+      <ul>
+      <% @blacklist_url.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :domain %><br>
+    <%= f.text_field :domain %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

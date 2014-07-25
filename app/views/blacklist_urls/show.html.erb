@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Domain:</strong>
+  <%= @blacklist_url.domain %>
+</p>
+
+<%= link_to 'Edit', edit_blacklist_url_path(@blacklist_url) %> |
+<%= link_to 'Back', blacklist_urls_path %>

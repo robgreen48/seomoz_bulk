@@ -1,0 +1,21 @@
+<%= form_for(@whitelist_url) do |f| %>
+  <% if @whitelist_url.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@whitelist_url.errors.count, "error") %> prohibited this whitelist_url from being saved:</h2>
+
+      <ul>
+      <% @whitelist_url.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :domain %><br>
+    <%= f.text_field :domain %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

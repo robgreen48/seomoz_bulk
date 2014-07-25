@@ -1,5 +1,9 @@
 SeomozBulk::Application.routes.draw do
   
+  resources :blacklist_urls
+
+  resources :whitelist_urls
+
   resources :urls
 
   resources :reports

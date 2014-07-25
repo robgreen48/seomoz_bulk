@@ -1,0 +1,27 @@
+<h1>Listing whitelist_urls</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Domain</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @whitelist_urls.each do |whitelist_url| %>
+      <tr>
+        <td><%= whitelist_url.domain %></td>
+        <td><%= link_to 'Show', whitelist_url %></td>
+        <td><%= link_to 'Edit', edit_whitelist_url_path(whitelist_url) %></td>
+        <td><%= link_to 'Destroy', whitelist_url, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Whitelist url', new_whitelist_url_path %>

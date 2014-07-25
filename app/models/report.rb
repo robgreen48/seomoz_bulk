@@ -5,14 +5,19 @@ class Report < ActiveRecord::Base
  		urls.each do |url|
         	Url.create(:report_id => self.id, :uri => Url.normalise(url), :status => 'not done')
 		end
-  	end
+  end
 
-  	def percentage_complete
-    	percentage = self.urls.where("status != 'not done'").count.fdiv(self.urls.count) * 100
+  	def percentage_complete_message
+    	if self.urls.first.nil?
+    		message = "Not Started"
+    	else
+    		percentage = self.urls.where("status != 'not done'").count.fdiv(self.urls.count) * 100
+    		message = "In Progress (" + percentage.round.to_s + "%)"
+    	end
   	end
 
   	def completed
-    	if self.urls.where("status = 'not done'").empty?
+    	if self.urls.where("status = 'not done'").empty? && self.urls.first != nil
       		return true
     	else
       	return false

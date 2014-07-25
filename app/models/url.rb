@@ -1,7 +1,7 @@
 class Url < ActiveRecord::Base
 	belongs_to :report
 
-	after_create :strip_domains
+	after_create :get_host_and_suffix
 	after_create :get_all_data
 
 
@@ -10,9 +10,15 @@ class Url < ActiveRecord::Base
   		self.delay.scrape_matches
   	end
 
-	def strip_domains
-		whole_url = Domainatrix.parse(self.uri)
-		self.update_attributes(:domain => whole_url.subdomain + "." + whole_url.domain + "." + whole_url.public_suffix, :public_suffix => whole_url.public_suffix)
+	def get_host_and_suffix
+		whole_url = Domainatrix.parse(self.uri) # parse url for public_suffix
+
+		uri = URI.parse(self.uri)
+  		uri = URI.parse("http://#{self.uri}") if uri.scheme.nil?
+  		host = uri.host.downcase
+  		host.start_with?('www.') ? host[4..-1] : host # get host name
+
+		self.update_attributes(:domain => host, :public_suffix => whole_url.public_suffix)
   	end
 
 	def get_linkscape_data
@@ -48,7 +54,7 @@ class Url < ActiveRecord::Base
 				description = doc.xpath("//meta[translate(@name,'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='description']/@content")
 				canonical = doc.xpath("//link[@rel='canonical']/@href")
 				twitter = doc.xpath("//a[contains(@href,'twitter.com')]/@href[last()]")
-				self.update_attributes(:title => title.to_s, :description => description.to_s, :canonical_url => canonical.to_s, :twitter => twitter.to_s, :http_status => @http_status, :status => "scrape done")
+				self.update_attributes(:title => title.to_s.truncate(254), :description => description.to_s.truncate(254), :canonical_url => canonical.to_s.truncate(254), :twitter => twitter.to_s.truncate(254), :http_status => @http_status, :status => "scrape done")
 
 		rescue Exception => e
 			logger.info "ERROR scraping " + "http://"+self.uri
@@ -57,6 +63,5 @@ class Url < ActiveRecord::Base
 		end
 
 	end
-
 
 end
