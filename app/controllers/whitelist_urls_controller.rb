@@ -24,17 +24,24 @@ class WhitelistUrlsController < ApplicationController
   # POST /whitelist_urls
   # POST /whitelist_urls.json
   def create
-    @whitelist_url = WhitelistUrl.new(whitelist_url_params)
+    @urls = params[:domain].split("\r\n")
 
-    respond_to do |format|
-      if @whitelist_url.save
-        format.html { redirect_to @whitelist_url, notice: 'Whitelist url was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @whitelist_url }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @whitelist_url.errors, status: :unprocessable_entity }
-      end
+    @urls.each do |url|
+      @whitelist_url = WhitelistUrl.new(:domain => url)
+      @whitelist_url.save
     end
+
+    redirect_to whitelist_urls_url
+
+    # respond_to do |format|
+    #   if @whitelist_url.save
+    #     format.html { redirect_to @whitelist_url, notice: 'Whitelist url was successfully created.' }
+    #     format.json { render action: 'show', status: :created, location: @whitelist_url }
+    #   else
+    #     format.html { render action: 'new' }
+    #     format.json { render json: @whitelist_url.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /whitelist_urls/1

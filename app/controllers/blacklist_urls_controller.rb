@@ -24,17 +24,24 @@ class BlacklistUrlsController < ApplicationController
   # POST /blacklist_urls
   # POST /blacklist_urls.json
   def create
-    @blacklist_url = BlacklistUrl.new(blacklist_url_params)
+    @urls = params[:domain].split("\r\n")
 
-    respond_to do |format|
-      if @blacklist_url.save
-        format.html { redirect_to @blacklist_url, notice: 'Blacklist url was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @blacklist_url }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @blacklist_url.errors, status: :unprocessable_entity }
-      end
+    @urls.each do |url|
+      @blacklist_url = BlacklistUrl.new(:domain => url)
+      @blacklist_url.save
     end
+
+    redirect_to blacklist_urls_url
+
+    # respond_to do |format|
+    #   if @blacklist_url.save
+    #     format.html { redirect_to @blacklist_url, notice: 'Blacklist url was successfully created.' }
+    #     format.json { render action: 'show', status: :created, location: @blacklist_url }
+    #   else
+    #     format.html { render action: 'new' }
+    #     format.json { render json: @blacklist_url.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /blacklist_urls/1
@@ -69,6 +76,9 @@ class BlacklistUrlsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def blacklist_url_params
-      params.require(:blacklist_url).permit(:domain)
+      # params.require(:blacklist_url).permit(:domain)
+      if params[:blacklist_url].present?
+        params.require(:blacklist_url).permit(:domain)
+      end
     end
 end

@@ -63,7 +63,12 @@ describe Url do
 		end
 
 		it "returns the HTTP code 200 when no redirection exists" do
-			pending 
+			report = Report.create(:name => "Test Report")
+			url = Url.create(:report_id => report.id, :uri => "www.bbc.co.uk/news/")
+			VCR.use_cassette('www.bbc.co.uk/news/') do
+				url.scrape_matches
+			end
+			expect url.http_status.should eql "200 OK"
 		end
 
 	end
@@ -107,16 +112,47 @@ describe Url do
 
 	describe ".get_linkscape_data" do
 
-		it "returns some data from the SEOMoz API" do
-			pending
+		client = Linkscape::Client.new(:accessID => "member-20de2fa4a6", :secret => "0d8ac3e7fe8ca9173e0e6fdb321d3102")
+		response = client.urlMetrics("http://www.bbc.co.uk/news", :cols => :all)
+
+		it "returns DA of 100 for BBC" do
+			expect response.data[:domain_authority].should eql 100
 		end
 
-		it "returns DA" do
-			pending
+		it "returns a value for PA for BBC" do
+			expect response.data[:page_authority].should_not eql nil
+		end
+	end
+
+	describe ".check_lists" do
+
+		report = Report.create(:name => "Test Report")
+		white = WhitelistUrl.create(:domain => "www.goodsite.com")
+		black = BlacklistUrl.create(:domain => "www.badsite.com")
+
+		it "sets list to white for a whitelisted domain" do
+			url = Url.create(:report_id => report.id, :uri => "www.goodsite.com/stuff")
+			expect url.list.should eql "White"
 		end
 
-		it "returns PA" do
-			pending
+		it "sets list to black for a blacklisted domain" do
+			url = Url.create(:report_id => report.id, :uri => "www.badsite.com/some/other/stuff")
+			expect url.list.should eql "Black"
+		end
+
+		it "sets list to not listed for a not listed domain" do
+			url = Url.create(:report_id => report.id, :uri => "www.someothersite.com")
+			expect url.list.should eql "Not Listed"
+		end
+
+		it "strips a whitelist url to just the host" do
+			new_white = WhitelistUrl.create(:domain => "http://www.goodsite.com/nicepage")
+			expect new_white.domain.should eql "www.goodsite.com"
+		end
+
+		it "strips a blacklist url to just the host" do
+			new_black = BlacklistUrl.create(:domain => "http://www.badsite.com/badpage")
+			expect new_black.domain.should eql "www.badsite.com"
 		end
 	end
 

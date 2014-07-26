@@ -11,10 +11,12 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :domain %><br>
-    <%= f.text_field :domain %>
+  <div class="form-group">
+  <%= label_tag :domain, "URLs", :class => "col-sm-2 control-label" %>
+  <div class="col-sm-6">
+    <%= text_area_tag :domain, nil, cols: 20, rows: 20, class: "form-control" %>
   </div>
+</div>
   <div class="actions">
     <%= f.submit %>
   </div>

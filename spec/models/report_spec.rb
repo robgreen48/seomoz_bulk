@@ -22,26 +22,26 @@ describe Report do
 
 	end
 
-	# describe ".to_csv" do
+	describe ".to_csv" do
 
-	# 	it "returns a CSV of headings and report URLs" do
-	# 		report = Report.create(:name => "Test Report")
-	# 		url_1 = Url.create(:report_id => report.id, :uri => "www.bbc.co.uk/", :status => "scrape done")
-	# 		url_2 = Url.create(:report_id => report.id, :uri => "www.bbc.co.uk/news", :status => "scrape done")
+		it "returns a CSV with some content" do
+			report = Report.create(:name => "Test Report")
+			url_1 = Url.create(:report_id => report.id, :uri => "www.bbc.co.uk/", :status => "scrape done")
+			url_2 = Url.create(:report_id => report.id, :uri => "www.bbc.co.uk/news", :status => "scrape done")
 
-	# 		VCR.use_cassette('www.bbc.co.uk') do
-	# 			url_1.scrape_matches
-	# 		end
+			VCR.use_cassette('www.bbc.co.uk') do
+				url_1.scrape_matches
+			end
 
-	# 		VCR.use_cassette('www.bbc.co.uk/news') do
-	# 			url_2.scrape_matches
-	# 		end
+			VCR.use_cassette('www.bbc.co.uk/news') do
+				url_2.scrape_matches
+			end
 
-	# 		expect report.to_csv.should eql "URL,Title,Meta Description,Canonical,HTTP Status\nhttp://www.bbc.co.uk/,BBC - Homepage,\"Explore the BBC, for latest news, sport and weather, TV & radio schedules and highlights, with nature, food, comedy, children's programmes and much more\",\"\",200 OK\nhttp://www.bbc.co.uk/news,BBC News - Home,\"Visit BBC News for up-to-the-minute news, breaking news, video, audio and feature stories. BBC News provides trusted World and UK news as well as local and regional perspectives. Also entertainment, business, science, technology and health news.\",http://www.bbc.co.uk/news/,200 OK\n"
+			expect report.to_csv.should_not eql nil
 
-	# 	end
+		end
 
-	# end
+	end
 
 	describe ".percentage_complete" do
 		it "returns the percentage of URLs in a report that have been scraped" do

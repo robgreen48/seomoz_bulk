@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140724211654) do
+ActiveRecord::Schema.define(version: 20140726114241) do
 
   create_table "blacklist_urls", force: true do |t|
     t.string   "domain"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20140724211654) do
     t.string   "description"
     t.string   "twitter"
     t.string   "http_status"
+    t.string   "list"
   end
 
   create_table "whitelist_urls", force: true do |t|

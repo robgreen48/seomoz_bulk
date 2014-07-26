@@ -2,8 +2,25 @@ class Url < ActiveRecord::Base
 	belongs_to :report
 
 	after_create :get_host_and_suffix
+	after_create :check_lists
 	after_create :get_all_data
 
+	def check_lists
+		white = WhitelistUrl.find_by domain: self.domain
+		black = BlacklistUrl.find_by domain: self.domain
+		
+		if white != nil
+			self.update_attributes(:list => "White")
+		end
+
+		if black != nil
+			self.update_attributes(:list => "Black")
+		end
+
+		if black == nil && white == nil
+			self.update_attributes(:list => "Not Listed")
+		end
+	end
 
 	def get_all_data
 		self.delay.get_linkscape_data
