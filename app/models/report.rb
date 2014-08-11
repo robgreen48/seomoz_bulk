@@ -26,11 +26,12 @@ class Report < ActiveRecord::Base
 
   	def to_csv
     	heading_row = Array.new
-    	heading_row =["URL", "Domain", "TLD", "DA", "PA", "External Links", "Links", "Canonical URL", "Title"]
+    	heading_row =["URL", "Domain", "TLD", "DA", "PA", "External Links", "Links", "Canonical URL", "Title", "Description", "Listed", "Blog", "Directories", "Forums", "Link", "Article", "Wiki", "Gov/AC", "PR", "Scrape"
+]
     	CSV.generate do |csv|
       		csv << heading_row
       		self.urls.each do |url|
-         		csv << [url.uri, url.domain, url.public_suffix, url.domain_authority, url.page_authority, url.ext_links, url.links, url.canonical_url, url.title]
+         		csv << [url.uri, url.domain, url.public_suffix, url.domain_authority, url.page_authority, url.ext_links, url.links, url.canonical_url, url.title, url.description, url.list, url.is_blog, url.is_directory, url.is_forum, url.is_link_page, url.is_article, url.is_wiki, url.is_gov, url.is_pr, url.is_scraper]
        		end
     	end
 	end

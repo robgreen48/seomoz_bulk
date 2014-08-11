@@ -15,7 +15,10 @@ class ReportsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @report }
-      format.csv { render text: @report.to_csv }
+      format.csv do
+        response.headers['Content-Disposition'] = 'attachment; filename="' + @report.name + '.csv"'
+        render text: @report.to_csv
+      end
     end
 
   end
